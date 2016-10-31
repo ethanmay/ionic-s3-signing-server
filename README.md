@@ -37,26 +37,26 @@ angular.module('myapp')
 .service( 'UploadService', [ '$q', '$http', function( $q, $http ) {
 	
 	function s3Uploader( imageURI, fileName ) {
-	 	var deferred = $q.defer();
+		var deferred = $q.defer();
 
 		var mime = imageURI.substr( imageURI.length - 3 );
 
-	  var options = new FileUploadOptions();
-	  options.fileKey = 'file';
-	  options.fileName = fileName;
-	  options.mimeType = 'image/' + mime;
-	  options.chunkedMode = false;
+		var options = new FileUploadOptions();
+		options.fileKey = 'file';
+		options.fileName = fileName;
+	  	options.mimeType = 'image/' + mime;
+	  	options.chunkedMode = false;
 
-	  $http.post( 'https://localhost:3000/sign-s3', { 'name': fileName } ).then( function( res ) {
-	  	var data = res.data;
-	  	options.params = {
-	        "key": fileName,
-	        "AWSAccessKeyId": data.key,
-	        "acl": "public-read",
-	        "policy": data.policy,
-	        "signature": data.signature,
-	        "Content-Type": options.mimeType
-	    };
+		$http.post( 'https://localhost:3000/sign-s3', { 'name': fileName } ).then( function( res ) {
+			var data = res.data;
+			options.params = {
+			"key": fileName,
+			"AWSAccessKeyId": data.key,
+			"acl": "public-read",
+			"policy": data.policy,
+			"signature": data.signature,
+			"Content-Type": options.mimeType
+	    	};
 	  	var ft = new FileTransfer();
 	  	ft.upload( imageURI, "https://" + data.bucket + ".s3.amazonaws.com", function() {
 	  		var imgUrl = "https://" + data.bucket + ".s3.amazonaws.com", + fileName;
