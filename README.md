@@ -1,9 +1,8 @@
-S3 Signing Server
------------------
+Heroku-Ready S3 Signing Server
+---
+A simple, heroku-ready signing server for your S3 bucket. Built specifically for Cordova & Angular. Inspired by http://coenraets.org/blog/2013/09/how-to-upload-pictures-from-a-phonegap-app-to-amazon-s3/
 
-**A push to the `master` branch of this repository will push to the live Heroku server.**
-
-Node/Express signing server to upload media to an AWS S3 bucket.
+Node & Express signing server to upload media to an AWS S3 bucket.
 
 First perform an `npm install`.
 
@@ -48,7 +47,7 @@ angular.module('myapp')
 	  options.mimeType = 'image/' + mime;
 	  options.chunkedMode = false;
 
-	  $http.post( 'https://my-host-url.com/sign-s3', { 'name': fileName } ).then( function( res ) {
+	  $http.post( 'https://localhost:3000/sign-s3', { 'name': fileName } ).then( function( res ) {
 	  	var data = res.data;
 	  	options.params = {
 	        "key": fileName,
