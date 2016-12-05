@@ -59,7 +59,7 @@ angular.module('myapp')
 	    	};
 	  	var ft = new FileTransfer();
 	  	ft.upload( imageURI, "https://" + data.bucket + ".s3.amazonaws.com", function() {
-	  		var imgUrl = "https://" + data.bucket + ".s3.amazonaws.com", + fileName;
+	  		var imgUrl = "https://" + data.bucket + ".s3.amazonaws.com" + fileName;
 	  		deferred.resolve( imgUrl );
 	  	}, function( err ) {
 	  		deferred.reject( err );
